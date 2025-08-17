@@ -1,0 +1,40 @@
+<!-- 「base.html」を継承 -->
+{% extends "base.html" %}
+
+<!-- タイトルブロックを書き換える-->
+{% block title %}
+掲示板のトップページ
+{% endblock %}
+
+<!-- ヘッターブロックを書き換える -->
+{% block header %}
+<!-- 「login_user_name」の値に応じた条件分岐 -->
+{% if login_user_name %}
+掲示板のトップページ - {{login_user_name}}さん
+{% else %}
+掲示板のトップページ - ゲストさん
+{% endif %}
+{% endblock %}
+
+<!-- コンテンツブロックを書き換える -->
+{% block contents %}
+<!-- 検索ワードを送信するフォームを定義 -->
+<section>
+    <form action="{{url_for('index')}}" method="GET">
+        <input type="search" name="search_word" value="{{search_word}}"></label>
+        <input type="submit" value="検索">
+    </form>
+</section>
+<section>
+    <!-- 繰り返し機能を使って「Message_list」の要素を表示 -->
+    {% for message in message_list %}
+    <article>
+        <p>{{message.id}} - {{message.user_name}}</p>
+        <p>{{message.contents}}</p>
+        <!-- 更新、削除リンク -->
+        <p><a href="{{url_for('update', message_id=message.id)}}">更新</a></p>
+        <p><a href="{{url_for('delete', message_id=message.id)}}">削除</a></p>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
