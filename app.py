@@ -70,7 +70,7 @@ def write():
        return redirect(url_for("index"))
     
 # 更新機能のルーティング
-@app.route("/update/<int:message_id>", methods={"GET", "POST"})
+@app.route("/update/<int:message_id>", methods=["GET", "POST"])
 def update(message_id: int):
     # メッセージIDから更新対象のメッセージを取得
     message: Message = Message.query.get(message_id)
@@ -105,4 +105,5 @@ with app.app_context():
 
 
 if __name__ == "__main__":
+
     app.run(debug=True)
