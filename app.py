@@ -12,7 +12,7 @@ login_user_name: str = "osamu"
 
 # Databaseの設定
 import os
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_CONNECTION', 'sqlite:///local.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_CONNECTION', None)
 db = SQLAlchemy(app)
 
 
@@ -107,4 +107,5 @@ with app.app_context():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
 
